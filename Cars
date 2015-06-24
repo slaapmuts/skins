@@ -29,3 +29,27 @@ Fiber.yield while $game_message.choice?
 #equips armor choice
 $game_actors[2].change_equip(4, armor[$game_variables[19]-1])
 $game_variables[21] = armor[$game_variables[19]-1].name rescue ""
+
+hero = $game_actors[2]
+accesory = $game_actors[2].equips[4]
+
+#daihatsu
+if accesory.id == 15 
+hero.set_graphic("cars2", 0,"Actor132_1", 3)
+end
+#police
+if accesory.id == 16 
+hero.set_graphic("cars2", 7,"Actor132_1", 3)
+end
+#taxi
+if accesory.id == 17
+hero.set_graphic("cars2", 6,"Actor132_1", 3)
+end
+#sci fi
+if accesory.id == 18
+hero.set_graphic("cars1", 0,"Actor132_1", 3)
+end
+$game_player.refresh
+# ID = Actor Index
+# character_index = Starts from 0 (Top Left), 1, 2, ...
+# faceset_index = Starts from 0 (Top Left), 1, 2, ...
