@@ -1,0 +1,31 @@
+# initiate vars
+n = 0
+armor = []
+$game_variables[19] = 0
+
+#puts all current armors in inventory, in array armor
+$game_party.armors.each do |y|
+if y.is_a?(RPG::Armor) #I want to check for armor type aswell
+armor[n] = y
+end
+n += 1
+end
+
+#shows all armors as choices 
+params = []
+choices = []                                                                             
+armor.each do |x|
+choices.push(x.name)
+end
+choices.push("exit")
+params.push(choices)
+#when cancel choice will be exit
+params.push(armor.length + 1)
+setup_choices(params)
+$game_message.choice_proc = Proc.new {|n| @branch[@indent] = n
+$game_variables[19] = n + 1 }                                                            
+Fiber.yield while $game_message.choice?                                                  
+
+#equips armor choice
+$game_actors[2].change_equip(4, armor[$game_variables[19]-1])
+$game_variables[21] = armor[$game_variables[19]-1].name rescue ""
